@@ -1,0 +1,11 @@
+.geolocation-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.geolocation-text {
+    font-size: 200%;
+    margin-left: 1%;
+    margin-right: 1%;
+}

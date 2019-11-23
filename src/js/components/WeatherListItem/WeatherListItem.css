@@ -1,0 +1,9 @@
+.city-info-weather-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: grey;
+    color: white;
+    margin-top: 1px;
+    padding: 1%;
+}

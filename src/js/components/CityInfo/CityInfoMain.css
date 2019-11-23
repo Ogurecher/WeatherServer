@@ -1,0 +1,19 @@
+#main {
+    flex-direction: row;
+    flex: 0 0 100%;
+}
+
+#main > div:first-child {
+    font-size: 300%;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2%;
+}
+
+#main > div:first-child > p:first-child {
+    flex: 0 1 100%;
+}
+
+#main > div > form > input {
+    visibility: hidden;
+}
