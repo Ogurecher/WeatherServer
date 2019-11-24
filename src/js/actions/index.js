@@ -22,7 +22,7 @@ export function getWeather(position, index) {
       } else {
         url = API_BASE_URL + '&lat=' + position.lat + '&lon=' + position.lng;
       }
-      return fetch(url)
+      /*return fetch(url)
           .then(response => {
             if (!response.ok){
               throw Error(response.statusText);
@@ -36,7 +36,14 @@ export function getWeather(position, index) {
           .catch(error => {
             console.log('ERROR!!!!!');
             dispatch({ type: THROW_ERROR, payload: 'Location not found', index: index });
-          });
+          });*/
+      return fetch('http://localhost:3000/')
+        .then((response) => {
+          return response.text();
+        })
+        .then((text) => {
+          console.log(text);
+        });
     };
 }
 
