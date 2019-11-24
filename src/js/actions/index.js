@@ -1,5 +1,4 @@
 import { LOAD_WEATHER, SET_LOCATION, LOADING, THROW_ERROR, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES } from '../constants/action-types';
-import { API_BASE_URL } from '../constants/resources';
 
 export function getLocation() {
   return function(dispatch) {
@@ -22,7 +21,6 @@ export function getWeather(position, index) {
       } else {
         url = `http://localhost:3000/weather/coordinates?lat=${position.lat}&lon=${position.lng}`
       }
-      //url = 'http://localhost:3000/weather?city=london';
       return fetch(url)
           .then(response => {
             if (!response.ok){

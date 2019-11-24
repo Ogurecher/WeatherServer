@@ -15,6 +15,10 @@ app.get('/weather', (req, res) => {
     url = API_BASE_URL + '&q=' + req.query.city;
     fetch(url)
     .then((response) => {
+        if (!response.ok){
+            res.status(404).send('Not found');
+            throw Error(response.statusText);
+        };
         return response.json();
     })
     .then((json) => {
@@ -26,6 +30,10 @@ app.get('/weather/coordinates', (req, res) => {
     url = API_BASE_URL + '&lat=' + req.query.lat + '&lon=' + req.query.lon;
     fetch(url)
     .then((response) => {
+        if (!response.ok){
+            res.status(404).send('Not found');
+            throw Error(response.statusText);
+        };
         return response.json();
     })
     .then((json) => {
