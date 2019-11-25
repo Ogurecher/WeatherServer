@@ -25,7 +25,8 @@ export function getWeather(position, index) {
           .then(response => {
             if (!response.ok){
               throw Error(response.statusText);
-            }
+            };
+
             return response.json();
           })
           .then(json => {
@@ -40,9 +41,57 @@ export function getWeather(position, index) {
 }
 
 export function addToFavourites(city) {
-  return {type: ADD_TO_FAVOURITES, payload: city.toLowerCase()};
+  return function(dispatch) {
+    const data = { cityName: city.toLowerCase() };
+    const url = 'http://localhost:3000/favourites'
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        };
+
+        return response.json();
+      })
+      .then((json) => {
+        console.log(`saved ${data}, got ${json}`);
+        dispatch({type: ADD_TO_FAVOURITES, payload: city.toLowerCase()});
+      })
+      .catch(error => {
+        console.log('create error');
+      });
+  };
 }
 
 export function removeFromFavourites(city) {
-  return {type: REMOVE_FROM_FAVOURITES, payload: city};
+  return function(dispatch) {
+    const data = { cityName: city.toLowerCase() };
+    const url = 'http://localhost:3000/favourites'
+    return fetch(url, {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        };
+
+        return response.json();
+      })
+      .then((json) => {
+        console.log(`deleted ${data}, got ${json}`);
+        dispatch({type: REMOVE_FROM_FAVOURITES, payload: city});
+      })
+      .catch(error => {
+        console.log('delete error');
+      });
+  };
 }

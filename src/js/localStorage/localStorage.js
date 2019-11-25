@@ -1,5 +1,6 @@
 export function loadState() {
     const serializedState = localStorage.getItem('state');
+    // *********WHAT I WANT*********
     /*return fetch('http://localhost:3000/favourites')
     .then((response) => {
         if (!response.ok) {
@@ -30,6 +31,19 @@ export function loadState() {
           cities = {cities: [], favourites: []};
           return Object.assign({}, cities);
     });*/
+
+    // ********HOW I TEST**********
+    /*fetch('http://localhost:3000/favourites')
+    .then((response) => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.json();
+    })
+    .then((json) => {
+        console.log(json);
+        return json;
+    })*/
 
     if (serializedState === null) {
       return undefined;
