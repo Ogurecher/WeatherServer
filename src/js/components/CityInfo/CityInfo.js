@@ -20,9 +20,11 @@ export default class CityInfo extends Component {
     
     renderError(msg) {
         return (
-            <div className='city-info-error'>
+            <div id={this.props.id} className='city-info-error'>
                 <p> {msg} </p>
+                <div>
                     <CloseButton city={this.props.city} />
+                </div>
             </div>
         );
     }

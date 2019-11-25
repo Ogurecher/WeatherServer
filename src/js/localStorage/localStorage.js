@@ -1,7 +1,6 @@
-export async function loadState() {
-    //const serializedState = localStorage.getItem('state');
-    //console.log(serializedState);
-    return await fetch('http://localhost:3000/favourites')
+export function loadState() {
+    const serializedState = localStorage.getItem('state');
+    /*return fetch('http://localhost:3000/favourites')
     .then((response) => {
         if (!response.ok) {
             throw Error(response.statusText);
@@ -30,20 +29,9 @@ export async function loadState() {
           }
           cities = {cities: [], favourites: []};
           return Object.assign({}, cities);
-    });
-    /*const serializedState = fetch('http://localhost:3000/favourites')
-        .then((response) => {
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            return response.json();
-        })
-        .then((json) => {
-            console.log(json);
-            return json;
-        });*/
+    });*/
 
-    /*if (serializedState === null) {
+    if (serializedState === null) {
       return undefined;
     }
 
@@ -60,7 +48,7 @@ export async function loadState() {
         return Object.assign({}, JSON.parse(serializedState), cities);
     }
     cities = {cities: [], favourites: []};
-    return Object.assign({}, cities);*/
+    return Object.assign({}, cities);
 }
 
 export function saveState(state) {

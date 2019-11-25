@@ -48,6 +48,14 @@ app.get('/favourites', (req, res) => {
     res.send(JSON.stringify(body));
 });
 
+app.post('/favourites', (req, res) => {
+    
+});
+
+app.delete('/favourites', (req, res) => {
+
+});
+
 app.listen(3000, () => {
     console.log('App listening on port 3000');
 });

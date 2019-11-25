@@ -16,6 +16,6 @@ store.subscribe(() => {
   saveState({
     favourites: store.getState().favourites
   });
-})
+});
 
 export default store;
