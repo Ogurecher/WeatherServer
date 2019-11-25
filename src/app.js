@@ -41,6 +41,13 @@ app.get('/weather/coordinates', (req, res) => {
     });
 });
 
+app.get('/favourites', (req, res) => {
+    body = {
+        favourites: ['london', 'moscow']
+    };
+    res.send(JSON.stringify(body));
+});
+
 app.listen(3000, () => {
     console.log('App listening on port 3000');
 });
