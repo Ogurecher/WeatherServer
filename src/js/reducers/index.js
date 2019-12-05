@@ -1,4 +1,4 @@
-import { LOAD_WEATHER, SET_LOCATION, LOADING, THROW_ERROR, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES } from '../constants/action-types';
+import { LOAD_WEATHER, SET_LOCATION, LOADING, THROW_ERROR, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES, SET_FAVOURITES } from '../constants/action-types';
 
 const initialState = {
   weather: null,
@@ -89,6 +89,10 @@ function rootReducer(state = initialState, action) {
       favourites: newFavourites,
       cities: newCities
     });
+  }
+
+  if (action.type === SET_FAVOURITES) {
+    return Object.assign({}, state, action.payload);
   }
 
   return state;

@@ -41,6 +41,7 @@
     "mongodb": "^3.3.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "style-loader": "^1.0.0"
+    "style-loader": "^1.0.0",
+    "url": "^0.11.0"
   }
 }

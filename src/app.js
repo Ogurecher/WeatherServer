@@ -30,8 +30,11 @@ app.get('/weather', (req, res) => {
         res.send(json);
     })
     .catch((error) => {
-        console.log(error);
-        res.status(404).send('Not found');
+        if (error.code !== 'ECONNRESET') {
+            res.status(404).send('City not found');   
+        } else {
+            res.status(500).send('Connection reset');
+        }
     });
 });
 
@@ -48,8 +51,11 @@ app.get('/weather/coordinates', (req, res) => {
         res.send(json);
     })
     .catch((error) => {
-        console.log(error);
-        res.status(404).send('Not found');
+        if (error.code !== 'ECONNRESET') {
+            res.status(404).send('Location not found');
+        } else {
+            res.status(500).send('Connection reset');
+        }
     });
 });
 
@@ -66,8 +72,6 @@ app.get('/favourites', (req, res) => {
 });
 
 app.post('/favourites', (req, res) => {
-    console.log(req.body);
-    //db.collection('favourites').insertOne(req.body, (err, result) => {
     db.collection('favourites').update(req.body, req.body, { upsert: true }, (err, result) => {
         if (err) throw err;
 

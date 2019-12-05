@@ -1,4 +1,4 @@
-import { LOAD_WEATHER, SET_LOCATION, LOADING, THROW_ERROR, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES } from '../constants/action-types';
+import { LOAD_WEATHER, SET_LOCATION, LOADING, THROW_ERROR, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES, SET_FAVOURITES } from '../constants/action-types';
 
 export function getLocation() {
   return function(dispatch) {
@@ -23,18 +23,24 @@ export function getWeather(position, index) {
       }
       return fetch(url)
           .then(response => {
-            if (!response.ok){
-              throw Error(response.statusText);
+            //console.log(response);
+            if (!response.ok) {
+              const errorMsg = response.status;
+              if (response.status === 404) {
+                const requestURL = new URL(response.url);
+                const removeCity = removeFromFavourites(requestURL.searchParams.get('city'));
+                removeCity();
+              };
+              throw Error(response.status);
             };
 
             return response.json();
           })
           .then(json => {
-            console.log(json);
             dispatch({ type: LOAD_WEATHER, payload: json, index: index });
           })
           .catch(error => {
-            console.log('ERROR!!!!!');
+            console.log('getWeather error');
             dispatch({ type: THROW_ERROR, payload: 'Location not found', index: index });
           });
     };
@@ -70,6 +76,7 @@ export function addToFavourites(city) {
 
 export function removeFromFavourites(city) {
   return function(dispatch) {
+    console.log(`removing ${city}`);
     const data = { cityName: city.toLowerCase() };
     const url = 'http://localhost:3000/favourites'
     return fetch(url, {
@@ -91,7 +98,42 @@ export function removeFromFavourites(city) {
         dispatch({type: REMOVE_FROM_FAVOURITES, payload: city});
       })
       .catch(error => {
-        console.log('delete error');
+        //console.log('delete error');
       });
   };
+}
+
+export function loadFavourites() {
+  return function(dispatch) {
+    const url = 'http://localhost:3000/favourites'
+    return fetch(url)
+    .then((response) => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.json();
+    })
+    .then((json) => {
+      //console.log(json);
+      return json;
+    })
+    .then((serializedState) => {
+        if (serializedState === null) {
+            return undefined;
+        };
+      
+        let cities = {cities: []};
+        if (serializedState) {
+            cities = { cities: serializedState.map((city) => {
+                return {
+                    position: {city: city, lat: null, lng: null}, 
+                    weather: null,
+                    loading: 0,
+                    errorMsg: null
+                }})
+            };
+            dispatch({type: SET_FAVOURITES, payload: Object.assign({}, {favourites: serializedState}, cities)});
+        }
+    });
+  }
 }

@@ -5,11 +5,13 @@ import Favourites from '../Favourites/Favourites';
 import CityInfo from '../CityInfo/CityInfo';
 import { connect } from 'react-redux';
 import { getWeather } from '../../actions/index';
+import { loadFavourites } from '../../actions/index';
 import './App.css';
 
 export class App extends Component {
 
   componentDidMount() {
+    this.props.loadFavourites();
     for (let i = 0; i < this.props.cities.length; i++) {
       this.props.getWeather(this.props.cities[i].position, i);
     }
@@ -53,5 +55,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getWeather }
+  { getWeather, loadFavourites }
 )(App);
