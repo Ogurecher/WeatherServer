@@ -22,9 +22,11 @@ export class App extends Component {
       this.props.getWeather(this.props.position, null);
     }
 
-    for (let i = 0; i < this.props.cities.length; i++) {
-      if (!prevProps.cities[i] || JSON.stringify(this.props.cities[i].weather) !== JSON.stringify(prevProps.cities[i].weather)) {
-        this.props.getWeather(this.props.cities[i].position, i);
+    if (this.props.cities.length !== prevProps.cities.length) {
+      for (let i = 0; i < this.props.cities.length; i++) {
+        if (!prevProps.cities[i] || JSON.stringify(this.props.cities[i].weather) !== JSON.stringify(prevProps.cities[i].weather)) {
+          this.props.getWeather(this.props.cities[i].position, i);
+        }
       }
     }
   }
